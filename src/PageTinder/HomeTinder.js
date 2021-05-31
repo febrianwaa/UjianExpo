@@ -3,13 +3,13 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 
-class Home extends Component {
+class HomeTinder extends Component {
 
     handlerLogin(){
         if(this.props.isLogin){
-            this.props.navigation.navigate('menu')
+            this.props.navigation.navigate('MenuTinder')
         }else{
-            this.props.navigation.navigate('login')
+            this.props.navigation.navigate('LoginTinder')
         }
     }
     render() {
@@ -17,7 +17,7 @@ class Home extends Component {
             <View>
                
                         <TouchableOpacity style={styles.box} onPress={()=>{this.handlerLogin()}}><Text style={styles.boxLabel}>Login</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.box} onPress={()=>{this.props.navigation.navigate("registrasi")}}><Text style={styles.boxLabel}>Registrasi</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.box} onPress={()=>{this.props.navigation.navigate("RegisterTinder")}}><Text style={styles.boxLabel}>Registrasi</Text></TouchableOpacity>
                    
             </View>
         )
@@ -25,14 +25,14 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    isLogin:state.UserReducer.isLogin
+    isLogin:state.jodohReducer.isLogin
 })
 
 const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeTinder)
 
 const styles = StyleSheet.create({
     button:{

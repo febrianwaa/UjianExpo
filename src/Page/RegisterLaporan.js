@@ -5,17 +5,17 @@ import { connect } from 'react-redux'
 import { LaporanAction, UserAction } from '../Redux/Action'
 import axios from 'axios'
 
-class Register extends Component {
+class RegisterLaporan extends Component {
 
     constructor(props){
         super(props)
     }
 
     handleInputData(){
-        axios.post("http://192.168.0.15:8080/biodata/addBiodata/",this.props.dataRegis)
+        axios.post("http://192.168.0.15:8080/laporan/addLaporan/",this.props.dataRegis)
         .then((response)=>{
             alert(JSON.stringify(response.data));
-            this.props.navigation.replace("home")
+            this.props.navigation.replace("menu")
         }).catch((err)=>{
             console.log(err)
         })
@@ -24,29 +24,29 @@ class Register extends Component {
     render() {
         return (
             <View>
-                <Text> Nama </Text>
+                {/* <Text> Status Kejadian </Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Masukan Nama"
-                    onChangeText={(value)=>{this.props.UserAction("nama",value)}}
+                    placeholder="Masukan Kejadian"
+                    onChangeText={(value)=>{this.props.LaporanAction("statusKejadian",value)}}
                 />
-                <Text> Email </Text>
+                <Text> Alamat </Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Masukan Email"
-                    onChangeText={(value)=>{this.props.UserAction("email",value)}}
+                    placeholder="Masukan Alamat"
+                    onChangeText={(value)=>{this.props.LaporanAction("alamat",value)}}
+                /> */}
+                <Text> Latitude </Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Masukan latitude"
+                    onChangeText={(value)=>{this.props.LaporanAction("latitude",value)}}
                 />
-                <Text> Phone </Text>
+                <Text> Longitude </Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Masukan Phone"
-                    onChangeText={(value)=>{this.props.UserAction("phone",value)}}
-                />
-                <Text> Address </Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Masukan Address"
-                    onChangeText={(value)=>{this.props.UserAction("address",value)}}
+                    placeholder="Masukan Longitude"
+                    onChangeText={(value)=>{this.props.LaporanAction("longitude",value)}}
                 />
                 <TouchableOpacity style={styles.box} onPress={()=>{this.handleInputData()}}><Text style={styles.boxLabel}>Submit</Text></TouchableOpacity>
             </View>
@@ -55,14 +55,14 @@ class Register extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    dataRegis:state.UserReducer
+    dataRegis:state.LaporanReducer
 })
 
 const mapDispatchToProps = {
-    UserAction
+    LaporanAction
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register)
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterLaporan)
 
 const styles = StyleSheet.create({
     input: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         marginBottom: 5,
       },
-    
+     
       box: {
         borderWidth: 3,
         borderColor: '#ddd',

@@ -2,10 +2,15 @@ import { combineReducers } from "redux"
 
 const laporanState = {
     id:0,
-    statusKejadian:"",
-    waktu:0,
-    alamat:0.0,
-    gambar:""
+    nama:"",
+    kejadian:"",
+    alamat:"",
+    keterangan:"",
+    status:"",
+    jam:"",
+    image:"",
+    latitude:"",
+    longitude:""
 }
 
 const userData = {
@@ -14,7 +19,20 @@ const userData = {
     email:"",
     phone:"",
     address:"",
-    isLogin:false
+    isLogin:false,
+    dataUser:{}
+}
+
+const jodohData={
+    id:0,
+    username:"",
+    nama:"",
+    jenisKelamin:"",
+    phone:"",
+    umur:"",
+    image:"",
+    isLogin:false,
+    dataJodoh:{}
 }
 
 function LaporanReducer (state=laporanState,action){
@@ -37,9 +55,20 @@ function UserReducer(state=userData,action){
     return state;
 }
 
+function jodohReducer(state=jodohData,action){
+    if(action.type==="SET_JODOH"){
+        return{
+            ...state,
+            [action.inputType]:action.inputValue
+        }
+    }
+    return state;
+}
+
 const reducer = combineReducers({
     LaporanReducer,
-    UserReducer
+    UserReducer,
+    jodohReducer
 })
 
 export default reducer
