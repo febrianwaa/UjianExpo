@@ -1,67 +1,95 @@
-import * as React from "react"
-import { Dimensions, StyleSheet, Text, View } from "react-native"
+import React, { Component } from 'react'
+import { View, Text,StyleSheet,Dimensions } from 'react-native'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import MapView, { Marker } from 'react-native-maps';
+import axios from 'axios';
 
-import MapView, { Callout, Circle, Marker } from "react-native-maps"
+export class Petaa extends Component {
 
-export default function Petaa() {
-	const [ pin, setPin ] = React.useState({
-		latitude: -6.420038,
-		longitude: 106.752710
-	})
-	const [ region, setRegion ] = React.useState({
-		latitude: -6.420038,
-		longitude: 106.752710,
-		latitudeDelta: 0.0922,
-		longitudeDelta: 0.0421
-	})
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataFlatList:[
+                {
+                    name:""
+                },
+                {
+                    name:""
+                },
+            ]
+        }
+    }
 
-	return (
-		<View style={{ marginTop: 50, flex: 1 }}>
-            <MapView
-				style={styles.map}
-				initialRegion={{
-					latitude: -6.420038, 
-					longitude: 106.752710,
-					latitudeDelta: 0.0922,
-					longitudeDelta: 0.0421
-				}}
-				provider="google"
-			>
-				<Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
-				<Marker
-					coordinate={pin}
-					pinColor="red"
-					draggable={true}
-					onDragStart={(e) => {
-						console.log("Drag start", e.nativeEvent.coordinates)
-					}}
-					onDragEnd={(e) => {
-						setPin({
-							latitude: e.nativeEvent.coordinate.latitude,
-							longitude: e.nativeEvent.coordinate.longitude
-						})
-					}}
-				>
-					<Callout>
-						<Text>I'm here</Text>
-					</Callout>
-				</Marker>
-				<Circle center={pin} radius={1000} />
-               
-			</MapView>
-		</View>
-	)
+    componentDidMount() {
+        // if(this.props.isLogin){
+        //     this.props.navigation.navigate('Home')
+        // }else{
+            this.getData()
+        // }
+    }
+
+
+    getData(){
+        axios.get('http://192.168.0.15:8080/laporan/')
+        .then((response)=>{
+            let data =response.data
+            console.log(data)
+            this.setState({dataFlatList:data})
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }
+
+
+    renderMarker(){
+        console.log(this.state.dataFlatList)
+        return this.state.dataFlatList.map((data, index) => {
+            return (<Marker
+              key={index}
+              coordinate={{ latitude : parseFloat(data.latitude) , longitude :  parseFloat(data.longitude) }}
+            />)
+          })
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+              <MapView style={styles.map} 
+              
+                initialRegion={{
+                    latitude: -6.421383, 
+                    longitude: 106.754601,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                }}>
+                    {this.renderMarker()}
+                 </MapView>
+            </View>
+        )
+    }
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center"
-	},
-	map: {
-		width: Dimensions.get("window").width,
-		height: Dimensions.get("window").height
-	}
+const mapStateToProps = (state) => ({
+    
 })
+
+const mapDispatchToProps = {
+    
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Petaa)
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    map: {
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height,
+    },
+  });

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text,FlatList, Image } from 'react-native'
+import { View, Text,FlatList, Image, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import axios from 'axios';
+
 
 export class DataCalonTinder extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ export class DataCalonTinder extends Component {
                     data={this.state.dataFlatList}
                     keyExtractor={item=>parseInt(item.id)}
                     renderItem={({item})=>(
-                        <View style={{borderWidth:5,borderColor:"red",flexDirection:"row",margin:5}}>
+                        <TouchableOpacity style={{borderWidth:5,borderColor:"red",flexDirection:"row",margin:5}} onPress={()=>{this.props.navigation.navigate("DetailCalonTinder")}}>
                             <Image style={{width:100,height:100}}
                                 source={{uri:`http://192.168.0.15:8080/jodoh/image/${item.image}`}}
                             />
@@ -49,7 +50,7 @@ export class DataCalonTinder extends Component {
                                 <Text>Umur : {item.umur}</Text>
                                 <Text>Username : {item.username}</Text>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     )}
                 />
             </View>

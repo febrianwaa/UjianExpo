@@ -18,6 +18,11 @@ import LoginTinder from './src/PageTinder/LoginTinder';
 import MenuTinder from './src/PageTinder/MenuTinder';
 import  RegisterTinder  from './src/PageTinder/RegisterTinder';
 import  DataCalonTinder  from './src/PageTinder/DataCalonTinder';
+import DetailCalonTinder from './src/PageTinder/DetailCalonTinder';
+import MenuPeminjaman from './src/PagePeminjaman/MenuPeminjaman';
+import DataBukuPeminjaman from './src/PagePeminjaman/DataBukuPeminjaman';
+import { TambahPeminjam } from './src/PagePeminjaman/TambahPeminjam';
+import HistoryPeminjaman from './src/PagePeminjaman/HistoryPeminjaman';
 
 
 const Stack = createStackNavigator();
@@ -43,7 +48,14 @@ class App extends Component {
             <Stack.Screen name="MenuTinder" component={MenuTinder}/>
             <Stack.Screen name="RegisterTinder" component={RegisterTinder}/>
             <Stack.Screen name="DataCalonTinder" component={DataCalonTinder}/>
-
+          <Stack.Screen name="DetailCalonTinder" component={DetailCalonTinder}/>
+         
+         
+         {/* <Stack.Screen name="MenuPeminjaman" component={MenuPeminjaman}/>
+         <Stack.Screen name="DataBukuPeminjaman" component={DataBukuPeminjaman}/>
+         <Stack.Screen name="TambahPeminjam" component={TambahPeminjam}/>
+         <Stack.Screen name="HistoryPeminjaman" component={HistoryPeminjaman}/> */}
+         
           
           </Stack.Navigator>
         </NavigationContainer>
